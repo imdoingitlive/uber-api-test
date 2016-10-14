@@ -1,3 +1,5 @@
+var configAuth = require('./auth');
+
 $(document).ready( function(){
     // placeholder variables
     var userLatitude;
