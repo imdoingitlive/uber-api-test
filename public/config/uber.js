@@ -9,12 +9,24 @@ $(document).ready( function(){
     var partyLatitude = 40.747728;
     var partyLongitude = -73.986794;
 
+    // creating variable to store the timer
+    var timer;
+
     navigator.geolocation.watchPosition( function(position){
         // console.log(position);
        
         // this will update lat and long
         userLatitude = position.coords.latitude;
         userLongitude = position.coords.longitude;
+
+        // create timer if needed
+        // will fire every 60 seconds as recommended by the uber api
+        // only create the timer if users location has been grabbed for the first time
+        if (typeof timer === typeof undefined) {
+            timer = setInterval(function() {
+                getEstimatesForUserLocation(userLatitude, userLongitude);
+            }, 60000);
+        }
 
         // query uber api if needed
         getEstimatesForUserLocation(userLatitude, userLongitude);
