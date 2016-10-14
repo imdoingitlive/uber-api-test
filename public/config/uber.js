@@ -65,4 +65,25 @@ $(document).ready( function(){
             }
         });
     }
+
+    $("a").click(function(event){
+        
+        // redirect to uber api via deep-linking to the mobile web-app
+        var uberURL = "https://m.uber.com/sign-up?";
+
+        // add parameters 
+        uberURL += "client_id=" + configAuth.uberAuth.uberClientID;
+        if (typeof userLatitude != typeof undefined) {
+            uberURL += "&" + "pickup_latitude=" + userLatitude;
+        }
+        if (typeof userLongitude != typeof undefined) {
+            uberURL += "&" + "pickup_longitude=" + userLongitude;
+        }
+        uberURL += "&" + "dropoff_latitude=" + partyLatitude;
+        uberURL += "&" + "dropoff_longitude=" + partyLongitude;
+        uberURL += "&" + "dropoff_nickname=" + "Test";
+
+        // redirect to uber
+        window.location.href = uberURL;
+    });
 });
