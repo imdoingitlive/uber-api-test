@@ -3,6 +3,9 @@ $(document).ready( function(){
     var userLatitude;
     var userLongitude;
 
+    var partyLatitude = 40.747728;
+    var partyLongitude = -73.986794;
+
     navigator.geolocation.watchPosition( function(position){
         console.log(position);
        
