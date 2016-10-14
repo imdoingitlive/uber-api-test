@@ -9,8 +9,6 @@ $(document).ready( function(){
     var partyLatitude = 40.747728;
     var partyLongitude = -73.986794;
 
-    var data = result["prices"];
-
     navigator.geolocation.watchPosition( function(position){
         // console.log(position);
        
@@ -36,21 +34,23 @@ $(document).ready( function(){
             },
             success: function(result) {
                 console.log(result);
+                
+                var data = result["prices"];
+
+                if (typeof data != typeof undefined) {
+                    // sort uber products by time to the user's location
+                    data.sort(function(t0, t1){
+                        return t0.duration - t1.duration;
+                    });
+
+                    // update the uber button with the shortest time
+                    var shortest = data[0];
+                    if (typeof shortest != typeof undefined) {
+                        console.log("Updating time estimate...");
+                        $("#time").html("IN " + Math.ceil(shortest.duration / 60.0) + " MIN");
+                    }
+                }
             }
         });
-    }
-
-    if (typeof data != typeof undefined) {
-        // sort uber products by time to the user's location
-        data.sort(function(t0, t1){
-            return t0.duration - t1.duration;
-        });
-
-        // update the uber button with the shortest time
-        var shortest = data[0];
-        if (typeof shortest != typeof undefined) {
-            console.log("Updating time estimate...");
-            $("#time").html("IN " + Math.cein(shortest.duration / 60.0) + " MIN");
-        }
     }
 });
